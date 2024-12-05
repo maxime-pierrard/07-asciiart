@@ -1,49 +1,67 @@
-#### Imports et définition des variables globales
+"""
+Exercice 07-asciiart : Encodage d'une chaîne en une liste de tuples représentant
+les caractères consécutifs et leur nombre d'occurrences.
+"""
 
+#### Imports et définition des variables globales
 
 #### Fonctions secondaires
 
 
 def artcode_i(s):
-    """retourne la liste de tuples encodant une chaîne de caractères passée en argument selon un algorithme itératif
+    """Encode une chaîne de caractères en une liste de tuples représentant les caractères
+    consécutifs et leur nombre d'occurrences.
 
     Args:
-        s (str): la chaîne de caractères à encoder
+        s (str): La chaîne de caractères à encoder.
 
     Returns:
-        list: la liste des tuples (caractère, nombre d'occurences)
+        list: Une liste de tuples encodant la chaîne.
     """
-    
-    # votre code ici
+    if not s:
+        return []
 
-    return [ ]
+    result = []
+    count = 1
+    for i in range(1, len(s)):
+        if s[i] == s[i - 1]:
+            count += 1
+        else:
+            result.append((s[i - 1], count))
+            count = 1
+    result.append((s[-1], count))
+    return result
 
 
 def artcode_r(s):
-    """retourne la liste de tuples encodant une chaîne de caractères passée en argument selon un algorithme récursif
+    """Encode une chaîne de caractères en une liste de tuples représentant les caractères
+    consécutifs et leur nombre d'occurrences, en utilisant une approche itérative.
 
     Args:
-        s (str): la chaîne de caractères à encoder
+        s (str): La chaîne de caractères à encoder.
 
     Returns:
-        list: la liste des tuples (caractère, nombre d'occurences)
+        list: Une liste de tuples (caractère, nombre d'occurrences) encodant la chaîne.
     """
-    
-    # votre code ici
+    result = []
+    while s:
+        char = s[0]
+        count = 1
+        while count < len(s) and s[count] == char:
+            count += 1
+        result.append((char, count))
+        s = s[count:]
+    return result
 
-    # cas de base
-    # recherche nombre de caractères identiques au premier
-    # appel récursif
-
-    return []
-    
 
 #### Fonction principale
 
 
 def main():
+    """Fonction principale pour tester les fonctions artcode_i et artcode_r."""
     print(artcode_i('MMMMaaacXolloMM'))
     print(artcode_r('MMMMaaacXolloMM'))
+
 
 if __name__ == "__main__":
     main()
